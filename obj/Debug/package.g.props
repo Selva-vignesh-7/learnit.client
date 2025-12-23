@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <PackageJsonName Condition="$(PackageJsonName) == ''">learnit.client</PackageJsonName>
+    <PackageJsonPrivate Condition="$(PackageJsonPrivate) == ''">true</PackageJsonPrivate>
+    <PackageJsonVersion Condition="$(PackageJsonVersion) == ''">1.0.0</PackageJsonVersion>
+    <PackageJsonType Condition="$(PackageJsonType) == ''">module</PackageJsonType>
+    <PackageJsonScriptsDev Condition="$(PackageJsonScriptsDev) == ''">vite</PackageJsonScriptsDev>
+    <PackageJsonScriptsDevChrome Condition="$(PackageJsonScriptsDevChrome) == ''">start chrome https://localhost:5173</PackageJsonScriptsDevChrome>
+    <PackageJsonScriptsBuild Condition="$(PackageJsonScriptsBuild) == ''">vite build</PackageJsonScriptsBuild>
+    <PackageJsonScriptsLint Condition="$(PackageJsonScriptsLint) == ''">eslint .</PackageJsonScriptsLint>
+    <PackageJsonScriptsPreview Condition="$(PackageJsonScriptsPreview) == ''">vite preview</PackageJsonScriptsPreview>
+    <PackageJsonDependenciesFullcalendarDaygrid Condition="$(PackageJsonDependenciesFullcalendarDaygrid) == ''">^6.1.19</PackageJsonDependenciesFullcalendarDaygrid>
+    <PackageJsonDependenciesFullcalendarInteraction Condition="$(PackageJsonDependenciesFullcalendarInteraction) == ''">^6.1.19</PackageJsonDependenciesFullcalendarInteraction>
+    <PackageJsonDependenciesFullcalendarReact Condition="$(PackageJsonDependenciesFullcalendarReact) == ''">^6.1.19</PackageJsonDependenciesFullcalendarReact>
+    <PackageJsonDependenciesFullcalendarTimegrid Condition="$(PackageJsonDependenciesFullcalendarTimegrid) == ''">^6.1.19</PackageJsonDependenciesFullcalendarTimegrid>
+    <PackageJsonDependenciesClsx Condition="$(PackageJsonDependenciesClsx) == ''">^2.1.1</PackageJsonDependenciesClsx>
+    <PackageJsonDependenciesHtml2canvas Condition="$(PackageJsonDependenciesHtml2canvas) == ''">^1.4.1</PackageJsonDependenciesHtml2canvas>
+    <PackageJsonDependenciesReact Condition="$(PackageJsonDependenciesReact) == ''">^19.1.1</PackageJsonDependenciesReact>
+    <PackageJsonDependenciesReactDom Condition="$(PackageJsonDependenciesReactDom) == ''">^19.1.1</PackageJsonDependenciesReactDom>
+    <PackageJsonDependenciesReactIcons Condition="$(PackageJsonDependenciesReactIcons) == ''">^5.5.0</PackageJsonDependenciesReactIcons>
+    <PackageJsonDependenciesReactMarkdown Condition="$(PackageJsonDependenciesReactMarkdown) == ''">^9.0.3</PackageJsonDependenciesReactMarkdown>
+    <PackageJsonDependenciesReactRouter Condition="$(PackageJsonDependenciesReactRouter) == ''">^7.9.6</PackageJsonDependenciesReactRouter>
+    <PackageJsonDependenciesReactRouterDom Condition="$(PackageJsonDependenciesReactRouterDom) == ''">^7.9.6</PackageJsonDependenciesReactRouterDom>
+    <PackageJsonDependenciesRecharts Condition="$(PackageJsonDependenciesRecharts) == ''">^3.5.0</PackageJsonDependenciesRecharts>
+    <PackageJsonDevdependenciesEslintJs Condition="$(PackageJsonDevdependenciesEslintJs) == ''">^9.36.0</PackageJsonDevdependenciesEslintJs>
+    <PackageJsonDevdependenciesTypesReact Condition="$(PackageJsonDevdependenciesTypesReact) == ''">^19.1.16</PackageJsonDevdependenciesTypesReact>
+    <PackageJsonDevdependenciesTypesReactDom Condition="$(PackageJsonDevdependenciesTypesReactDom) == ''">^19.1.9</PackageJsonDevdependenciesTypesReactDom>
+    <PackageJsonDevdependenciesVitejsPluginReact Condition="$(PackageJsonDevdependenciesVitejsPluginReact) == ''">^5.0.4</PackageJsonDevdependenciesVitejsPluginReact>
+    <PackageJsonDevdependenciesEslint Condition="$(PackageJsonDevdependenciesEslint) == ''">^9.36.0</PackageJsonDevdependenciesEslint>
+    <PackageJsonDevdependenciesEslintPluginReactHooks Condition="$(PackageJsonDevdependenciesEslintPluginReactHooks) == ''">^5.2.0</PackageJsonDevdependenciesEslintPluginReactHooks>
+    <PackageJsonDevdependenciesEslintPluginReactRefresh Condition="$(PackageJsonDevdependenciesEslintPluginReactRefresh) == ''">^0.4.22</PackageJsonDevdependenciesEslintPluginReactRefresh>
+    <PackageJsonDevdependenciesGlobals Condition="$(PackageJsonDevdependenciesGlobals) == ''">^16.4.0</PackageJsonDevdependenciesGlobals>
+    <PackageJsonDevdependenciesVite Condition="$(PackageJsonDevdependenciesVite) == ''">npm:rolldown-vite@7.1.14</PackageJsonDevdependenciesVite>
+    <PackageJsonOverridesVite Condition="$(PackageJsonOverridesVite) == ''">npm:rolldown-vite@7.1.14</PackageJsonOverridesVite>
+  </PropertyGroup>
+</Project>

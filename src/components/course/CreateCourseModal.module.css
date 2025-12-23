@@ -1,0 +1,65 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.aiPane {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.aiPane textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text-strong);
+  font-family: inherit;
+  font-size: 0.95rem;
+  resize: vertical;
+}
+
+.aiPane input[type="number"],
+.aiPane select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text-strong);
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+[data-theme="dark"] .aiPane textarea,
+[data-theme="dark"] .aiPane input[type="number"],
+[data-theme="dark"] .aiPane select {
+  background: var(--surface);
+  color: var(--text-strong);
+  border-color: var(--border);
+  box-shadow: none;
+}
+
+[data-theme="dark"] .aiPane textarea:focus,
+[data-theme="dark"] .aiPane input[type="number"]:focus,
+[data-theme="dark"] .aiPane select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.2);
+  background: var(--surface);
+  color: var(--text-strong);
+}
+
+.aiPane ul {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.aiPane li {
+  margin: 0.25rem 0;
+  color: #666;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}

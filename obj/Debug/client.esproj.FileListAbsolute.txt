@@ -1,0 +1,3 @@
+C:\Users\AravinthKrishna\source\repos\Learnit\Learnit.client\obj\Debug\client.esproj.CoreCompileInputs.cache
+C:\Users\selva\OneDrive\Desktop\final\Learnit.client\obj\Debug\client.esproj.CoreCompileInputs.cache
+C:\Users\selva\OneDrive\Desktop\LTI Mindtree\Learnit_Final-main\Learnit_Final-main\Learnit.client\obj\Debug\client.esproj.CoreCompileInputs.cache

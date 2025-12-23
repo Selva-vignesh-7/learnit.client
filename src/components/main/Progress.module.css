@@ -1,0 +1,308 @@
+/* ------------------ LAYOUT ------------------ */
+.page {
+  padding: 8px 4px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.topGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.9fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.leftStack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.metricsColumn {
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+}
+
+/* ------------------ METRICS ------------------ */
+.metricsRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.metric {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+}
+
+.metric:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.06);
+  border-color: var(--accent);
+}
+
+.metricIcon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.metricText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.metricLabel {
+  font-size: 0.78rem;
+  color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.metricValue {
+  font-size: 1.15rem;
+  font-weight: 750;
+  letter-spacing: -0.25px;
+  color: var(--text-strong);
+}
+
+/* ------------------ SECTIONS ------------------ */
+.section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+}
+
+.section:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.section h2 {
+  font-size: 1.22rem;
+  margin-bottom: 12px;
+  font-weight: 700;
+  letter-spacing: -0.25px;
+}
+
+/* ------------------ PROGRESS BAR ------------------ */
+.progressBarOuter {
+  width: 100%;
+  height: 14px;
+  background: var(--bg);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.progressBarInner {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+  border-radius: 8px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(30, 175, 83, 0.4);
+  position: relative;
+}
+
+.progressBarInner::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: progressShine 2s infinite;
+}
+
+@keyframes progressShine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.progressLabel {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--text-strong);
+  font-weight: 600;
+}
+
+/* ------------------ CHART LAYOUT ------------------ */
+.chartsRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 18px;
+}
+
+.chartBox {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+}
+
+.chartBox:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* ------------------ HEATMAP ------------------ */
+.heatmap {
+  display: grid;
+  grid-template-columns: repeat(20, 14px);
+  gap: 6px;
+  margin-top: 14px;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.heatBox {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.05);
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.heatBox:hover {
+  transform: scale(1.2);
+  box-shadow: 0 2px 8px rgba(0, 141, 208, 0.3);
+  z-index: 1;
+  position: relative;
+}
+
+.heatmapLegend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+  font-size: 0.75rem;
+  color: var(--text-soft);
+}
+
+.legendBoxes {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.legendBox {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.1);
+}
+
+.legendLabel {
+  font-size: 0.7rem;
+  color: var(--text-soft);
+}
+
+/* ------------------ COURSE PROGRESS ------------------ */
+.courseGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.courseCard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+}
+
+.courseCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.06);
+  border-color: var(--accent);
+}
+
+.courseName {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  color: var(--text-strong);
+}
+
+.courseProgressBarOuter {
+  width: 100%;
+  height: 12px;
+  background: var(--bg);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.courseProgressBarInner {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-dark));
+  border-radius: 8px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(30, 175, 83, 0.4);
+}
+
+.coursePercent {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  font-weight: 600;
+}
+
+.aiRow {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+.aiList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  padding-left: 16px;
+}
+
+.aiList li {
+  list-style: disc;
+}
+
+@media (max-width: 960px) {
+  .topGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .aiRow {
+    grid-template-columns: 1fr;
+  }
+}
