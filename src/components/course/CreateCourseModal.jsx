@@ -137,6 +137,22 @@ function CreateCourseModal({ onSave, onCancel }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    
+    // If sourceUrl changes to non-YouTube, remove all sub-modules
+    if (name === "sourceUrl") {
+      const sourceUrl = value?.trim();
+      const isNonYouTubeExternal = sourceUrl && 
+        sourceUrl.length > 5 &&
+        !sourceUrl.includes("youtube.com") && 
+        !sourceUrl.includes("youtu.be");
+      
+      if (isNonYouTubeExternal) {
+        // Remove all sub-modules from all modules
+        setModules((prev) => 
+          prev.map((m) => ({ ...m, subModules: [] }))
+        );
+      }
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -189,6 +205,14 @@ function CreateCourseModal({ onSave, onCancel }) {
       return;
     }
 
+    // For non-YouTube courses, validate description is not empty/default
+    if (isExternalCourse) {
+      if (!formData.description?.trim() || formData.description.trim().length < 10) {
+        setError("Please provide a detailed description for the course (at least 10 characters)");
+        return;
+      }
+    }
+
     // For external courses, validate all modules have complete details
     if (isExternalCourse) {
       for (let i = 0; i < validModules.length; i++) {
@@ -201,19 +225,10 @@ function CreateCourseModal({ onSave, onCancel }) {
           setError(`Module ${i + 1} must have a valid duration (hours)`);
           return;
         }
-        // Validate submodules if they exist
+        // For non-YouTube courses, sub-modules are not allowed
         if (module.subModules && module.subModules.length > 0) {
-          for (let j = 0; j < module.subModules.length; j++) {
-            const subModule = module.subModules[j];
-            if (!subModule.title?.trim()) {
-              setError(`Module ${i + 1}, Submodule ${j + 1} must have a title`);
-              return;
-            }
-            if (!subModule.duration || parseFloat(subModule.duration) <= 0) {
-              setError(`Module ${i + 1}, Submodule ${j + 1} must have a valid duration (hours)`);
-              return;
-            }
-          }
+          setError(`Module ${i + 1} cannot have sub-modules for non-YouTube courses. Sub-modules are not supported for test modules.`);
+          return;
         }
       }
     }
@@ -223,20 +238,24 @@ function CreateCourseModal({ onSave, onCancel }) {
       return Number.isFinite(num) ? Math.max(0, Math.round(num)) : 0;
     };
 
+    // For non-YouTube courses, don't include sub-modules (they don't support test modules)
     const modulesPayload = validModules.map((m, idx) => ({
       tempId: idx + 1,
       title: m.title,
       estimatedHours: toHours(m.duration),
       notes: m.notes || "", // CRITICAL: Preserve Notes field (contains video timing data for YouTube videos)
-      subModules: (m.subModules || [])
-        .filter((s) => s.title.trim() && s.duration)
-        .map((s, subIdx) => ({
-          title: s.title,
-          estimatedHours: toHours(s.duration),
-          description: "",
-          notes: "",
-          order: subIdx,
-        })),
+      // Only include sub-modules for YouTube courses
+      subModules: isExternalCourse 
+        ? [] // Non-YouTube courses: no sub-modules
+        : (m.subModules || [])
+            .filter((s) => s.title.trim() && s.duration)
+            .map((s, subIdx) => ({
+              title: s.title,
+              estimatedHours: toHours(s.duration),
+              description: "",
+              notes: "",
+              order: subIdx,
+            })),
     }));
 
     setSubmitting(true);
@@ -362,6 +381,12 @@ function CreateCourseModal({ onSave, onCancel }) {
       // Detect if this is a YouTube video or playlist - YouTube content should have no submodules
       const isYouTubeContent = source && (source.includes("youtube.com") || source.includes("youtu.be"));
       
+      // Detect if this is a non-YouTube external course (needed for sub-module logic)
+      const isNonYouTubeExternal = source && 
+        source.length > 5 &&
+        !source.includes("youtube.com") && 
+        !source.includes("youtu.be");
+      
       // Store URL analysis info if we have a URL
       if (source && draft) {
         setUrlAnalysis({
@@ -473,9 +498,10 @@ function CreateCourseModal({ onSave, onCancel }) {
         }
 
         // For YouTube playlists/videos: NO submodules (requirement: module-level granularity only)
-        // For other sources: add default submodules if none exist
-        const finalSubModules = isYouTubeModule 
-          ? []  // YouTube: NO submodules (empty array)
+        // For non-YouTube courses: NO submodules (they don't support test modules)
+        // Only AI-generated courses without a URL can have submodules
+        const finalSubModules = (isYouTubeModule || isNonYouTubeExternal)
+          ? []  // YouTube and non-YouTube external courses: NO submodules (empty array)
           : (subModules.length 
               ? subModules 
               : [
@@ -1117,7 +1143,14 @@ function CreateCourseModal({ onSave, onCancel }) {
             </Field>
           </div>
 
-          <ModuleForm modules={modules} setModules={setModules} />
+          <ModuleForm 
+            modules={modules} 
+            setModules={setModules}
+            allowSubModules={(() => {
+              const sourceUrl = formData.sourceUrl?.trim();
+              return sourceUrl && (sourceUrl.includes("youtube.com") || sourceUrl.includes("youtu.be"));
+            })()}
+          />
 
           <InlineError error={error} />
 

@@ -1,7 +1,7 @@
 import { FaFolder, FaRegFile, FaPlus, FaTimes } from "react-icons/fa";
 import styles from "./ModuleForm.module.css";
 
-function ModuleForm({ modules, setModules }) {
+function ModuleForm({ modules, setModules, allowSubModules = true }) {
   const updateRoot = (id, field, value) => {
     setModules((prev) =>
       prev.map((m) => (m.id === id ? { ...m, [field]: value } : m))
@@ -31,6 +31,9 @@ function ModuleForm({ modules, setModules }) {
   };
 
   const addSub = (rootId) => {
+    if (!allowSubModules) {
+      return; // Prevent adding sub-modules for non-YouTube courses
+    }
     setModules((prev) =>
       prev.map((m) =>
         m.id === rootId
@@ -68,7 +71,11 @@ function ModuleForm({ modules, setModules }) {
       <div className={styles.header}>
         <div>
           <p className={styles.title}>Course modules *</p>
-          <p className={styles.subtitle}>Root modules with one sub-level.</p>
+          <p className={styles.subtitle}>
+            {allowSubModules 
+              ? "Root modules with one sub-level." 
+              : "Modules only (sub-modules not supported for non-YouTube courses)."}
+          </p>
         </div>
         <button type="button" className={styles.primaryBtn} onClick={addRoot}>
           <FaPlus />
@@ -112,10 +119,12 @@ function ModuleForm({ modules, setModules }) {
                 </div>
               </div>
               <div className={styles.actions}>
-                <button type="button" onClick={() => addSub(module.id)}>
-                  <FaPlus />
-                  Sub
-                </button>
+                {allowSubModules && (
+                  <button type="button" onClick={() => addSub(module.id)}>
+                    <FaPlus />
+                    Sub
+                  </button>
+                )}
                 {modules.length > 1 && (
                   <button
                     type="button"
@@ -128,7 +137,7 @@ function ModuleForm({ modules, setModules }) {
               </div>
             </div>
 
-            {(module.subModules || []).length > 0 && (
+            {(module.subModules || []).length > 0 && allowSubModules && (
               <ul className={styles.children}>
                 {(module.subModules || []).map((sub) => (
                   <li className={styles.node} key={sub.id}>
